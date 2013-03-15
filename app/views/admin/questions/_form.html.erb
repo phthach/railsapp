@@ -27,15 +27,16 @@
     <% end %>
     <%= collection_select(:subject, :id, Subject.all, :id, :name, {:prompt => "Select Subject"}) %>
   </li>
-
     <%= f.input :category, :as => :select, :collection => @categories, :prompt => "Select Category" %>
     <%= f.input :content, :as => :rich, :config => { :width => '78%', :height => '300px' } %>
     <%= f.input :mark, :as => :number, :min => 0 %>
     <% if params[:action] == 'new' && params[:type_question] == nil %>
-    <%= f.input :type_question, :as => :select, :collection => ["Single choice", "Multiple choices", "Open answer"], :selected => 'Single choice' %>
+    <%= f.input :type_question, :as => :select, :collection => ["Single choice", "Multiple choices", "Open answer"], :selected => 'Single choice' %>    
     <% else %>
       <%= f.input :type_question, :as => :select, :collection => ["Single choice", "Multiple choices", "Open answer"] %>
     <% end %>
+
+    <%= f.input :level, :as => :select, :collection => {"None" => "0", "Easy" => "1", "Normal" => "2", "Hard" => "3" }, :include_blank => false %>
 
     <li class="input required">
       <div id="answer" class="field">
@@ -46,7 +47,7 @@
           link_answer_name = Array.new
           answer_name = Array.new
 
-          for i in 1 .. count
+          for i in 1 ... count
             if params[:answer] == nil && params[:action] == 'edit'
                 area_value[i - 1] = (@question.answers)[i - 1].content
             elsif params[:answer] != nil

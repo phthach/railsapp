@@ -20,7 +20,7 @@ ActiveAdmin.register Exam do
 
   menu :priority => 6
   
-  form :partial => "form"
+  form :partial => "form" #use formtastic
 
   filter :category
   filter :name
@@ -43,7 +43,7 @@ ActiveAdmin.register Exam do
       # end
   end
 
-  show do
+  show do #view link
     @exam = Exam.find(params[:id])
     render 'show'
   end
@@ -68,13 +68,16 @@ ActiveAdmin.register Exam do
 
     def create
       @exam = Exam.new(params[:exam])
-
+      arr =Array.new
+      arr = @exam.level
+      arr.shift
+      arr.join(",")
       if @exam.valid?
-    
-      # create random questions
-        question1 = Question.select("id").order("RAND()").limit(@exam.on_answer).where("type_question = ? AND category_id = ?", "Single choice", @exam.category_id);
-        question2 = Question.select("id").order("RAND()").limit(@exam.m_answer).where("type_question = ? AND category_id = ?", "Multiple choices", @exam.category_id);
-        question3 = Question.select("id").order("RAND()").limit(@exam.o_answer).where("type_question = ? AND category_id = ?", "Open answer", @exam.category_id);
+        # create random questions
+
+        question1 = Question.select("id").order("RAND()").limit(@exam.on_answer).where("type_question = ? AND category_id = ? AND level in (?)", "Single choice", @exam.category_id, arr);
+        question2 = Question.select("id").order("RAND()").limit(@exam.m_answer).where("type_question = ? AND category_id = ? AND level in (?)", "Multiple choices", @exam.category_id, arr);
+        question3 = Question.select("id").order("RAND()").limit(@exam.o_answer).where("type_question = ? AND category_id = ? AND level in (?)", "Open answer", @exam.category_id, arr);        
 
         @questions = question1 + question2 + question3
 
@@ -98,14 +101,15 @@ ActiveAdmin.register Exam do
 
           end
 
-          format.html { redirect_to '/admin/exams/' + @exam.id.to_s, notice: 'Exam was successfully created.' }
+          format.html { redirect_to '/admin/exams/' + @exam.id.to_s, notice: 'Exam was successfully created.'}
           format.json { render json: @exam, status: :created, location: @exam }
           
         end
-      else
-        render 'new'
-      end
+      # end#
+    else
+      render 'new'
     end
+  end
 
     def edit
       @exam = Exam.find(params[:id])

@@ -13,7 +13,7 @@
         @categories = []
        %>
     <% end %>
-    <%= collection_select(:subject, :id, Subject.all, :id, :name, {:prompt => "Select Subject"}) %>
+    <%= collection_select(:subject, :id, Subject.all, :id, :name, {:prompt => "Select Subject"}) %>    
   </li>
 
     <%= f.input :category, :as => :select, :collection => @categories, :prompt => "Select Category" %>
@@ -23,12 +23,17 @@
       <%= f.input :m_answer, :label => "No. of \"Multiple choices\"", :as => :number %>
       <%= f.input :o_answer, :label => "No. of \"Open answer\"", :as => :number %>
       <%= f.input :q_user, :label => "No. of candidates", :as => :number %>
+      
+      <li>
+        <%= f.input :level, :as => :check_boxes, :collection =>{ "None"=>"0", "Easy" => "1", "Normal" => "2", "Hard" => "3" }%>
+      </li>
     <% end %>
-    <%= f.input :time_exam, :label => "Time Exam (minutes)" %>
+    <%= f.input :time_exam, :label => "Time Exam (minutes)" %>        
+
     <%= f.input :description %>
   <% end %>
   <%= f.actions do %>
-    <%= f.action :submit, :as => :input %>
+    <%= f.action :submit, :as => :input%>
     <%= f.action :cancel, :wrapper_html => { :class => "cancel" }, :label => "Cancel" %>
   <% end %>
 <% end %>

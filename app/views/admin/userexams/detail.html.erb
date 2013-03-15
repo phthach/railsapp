@@ -64,3 +64,61 @@
     </div>
   </div>
 </div>
+
+<!-- <div class="panel"> -->
+<div>
+  <h2>User's Test Details</h2>
+  <div class="panel_contents">
+    <div class="attributes_table user" id="attributes_table_user_2">
+      <table border="0" cellspacing="0" cellpadding="0">
+          <% count = 1%>
+          <% @single_ques.each do |a| %>
+              <tr>
+                <td>
+                  <strong><%= count %>) Question (Single choice):</strong><%= a['qContent'].html_safe%>
+                  <strong>User's answer: </strong><br>
+                  <%= a['aContent']%><br/>
+                  <br/><strong>Right answer:</strong><br>
+                  <%= a['trueAnswer']%><br/>
+                </td>
+              </tr>
+              <% count += 1%>
+          <% end %>
+
+          <% @multi_ques.each do |a| %>
+            <tr>
+              <td>
+                <strong><%= count %>) Question (Multiple choice):</strong><%= a['qContent'].html_safe %>
+
+                <strong>user's answer: </strong><br>
+                <% a['aContent'].each do |ans| %>                  
+                  - <%= ans %><br>
+                <% end %>
+
+                <br/><strong>Right answer:</strong><br>
+                <% i=1 %>
+                <% a['trueAnswer'].each do |ans| %>
+                  - <%= ans %><br>
+                  <% i=i+1 %>
+                <% end %>
+              </td>
+            </tr>
+            <% count += 1%>
+          <% end %>
+
+          <% @open_ques.each do |a| %>
+            <tr>
+              <td>
+                <strong><%= count %>) Question (Open question):</strong><%= a['qContent'].html_safe%>
+                <strong>user's answer: </strong><br>
+                <%= a['aContent']%><br/>
+                <br/><strong>Right answer:</strong><br>
+                <%= a['trueAnswer']%><br/>
+              </td>
+            </tr>
+            <% count += 1%>
+          <% end %>
+      </table>
+    </div>
+  </div>
+</div>

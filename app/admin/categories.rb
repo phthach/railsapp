@@ -18,6 +18,8 @@ ActiveAdmin.register Category do
   filter :created_at
   filter :updated_at
 
+
+  #display the last subject in filters
   collection_action :index, :method => :get do
       scope = Category.getByLastSubject
 
@@ -32,9 +34,10 @@ ActiveAdmin.register Category do
       # end
   end
 
+
   form do |f|                         
-    f.inputs "Caetgory Details" do     
-    	f.input :subject, :as => :select, :prompt => "Select Subject"
+    f.inputs "Category Details" do     
+    	f.input :subject, :as => :select, :prompt => "Select Subject" #type select box
       f.input :name                  
       f.input :description  
     end                               
@@ -44,4 +47,7 @@ ActiveAdmin.register Category do
   action_item :only => :show do
     link_to "New Category", new_admin_category_path
   end
+
 end
+
+

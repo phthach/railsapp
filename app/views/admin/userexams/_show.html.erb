@@ -5,6 +5,8 @@ The tmp_point is: <%= @point.tmp_point %>
   <%= hidden_field_tag "id", @point.id %>
 
   <% @arr_urs_answer.each do |a| %>
+    <% if a['type_question'] == "Open answer" %>
+
     <% name_q = a['content'].insert(3, "<strong>Question: </strong>") %>
     <%= name_q.html_safe %>
     <strong>user's answer: </strong><%= a['con_answer'] %><br />
@@ -12,6 +14,8 @@ The tmp_point is: <%= @point.tmp_point %>
     <%= radio_button_tag a['question_id'], "1"  %> Correct &nbsp;&nbsp;&nbsp;
     <%= radio_button_tag a['question_id'], "0", true  %> Incorrect
     <br /><br />
+
+    <% end %>
   <% end %>
   <%= submit_tag "submit" %>
 <% end %>

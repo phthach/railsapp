@@ -1,7 +1,7 @@
 class Question < ActiveRecord::Base
   scope :getByLastCategory, lambda { where("category_id = ?", Category.last.id) }
   
-  attr_accessible :category_id, :content, :mark, :type_question
+  attr_accessible :category_id, :content, :mark, :type_question, :level
 
   belongs_to :category
   has_many :answers, :dependent => :destroy

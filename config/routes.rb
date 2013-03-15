@@ -3,6 +3,10 @@ DemoActive::Application.routes.draw do
 
   match "admin/userexams/detail/:id", to: "admin/userexams#detail"
 
+  post "mail/sendMail" #post email, link, pass
+
+  post "mail/insertEmail" # post email, insert to database
+
   post "ajax/save_time"
 
   get "maintest/jstest"
@@ -93,4 +97,5 @@ DemoActive::Application.routes.draw do
   match "/test/:hashid", to: "maintest#test_exam"
 
   match "/:hashid", to: "sessions#new"
+
 end

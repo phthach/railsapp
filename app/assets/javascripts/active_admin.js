@@ -57,4 +57,74 @@ $(document).ready(function() {
 			$(this).parent().remove();
 			
 	});
+
+
+	// $(document).ready(function(){
+ //  		$(".name_test").change(function(){
+
+ //    		var content=$(this).val();
+ //    		$(this).replaceWith('<a href="/mail" class="cd">'+content+'</a>');  
+
+ //    		$(".cd").click(function(){
+ //    			$.ajax ({
+	// 				type: "POST",
+	// 				url: "/mail/sendMail",
+	// 				data: {id: "content"}
+	// 				//cache: false,					
+	// 			}); 	      		         
+ //  			});
+ //  		});
+	// });
 });
+
+$(document).ready(function(){
+	var pass;
+	var link;
+	var email;
+	var user_id;
+
+  	$(".name_test").change(function(){	//textbox
+    	content=$(this).attr("label");
+    	email=$(this).val();
+    	if (email=="") return true;
+    	var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+		if (testEmail.test(email)){
+	    	$(this).replaceWith('<a href="javascript:void()" class="cd" label='+content+'>'+email+'</a>');   
+	    	arr=content.split("-");
+	    	pass=arr[0];
+	    	link=arr[1];
+	    	user_id=arr[2];
+	    	// console.log("start ajax");
+	    	$.ajax ({
+				type: "POST",
+				url: "/mail/insertEmail",
+				data: {email: email, user_id: user_id}, //pass to find user & save email
+				success: function(html) {
+					alert("Save email success!");
+				}		
+			});
+			// console.log("stop ajax");
+	    }
+	    else 
+	    	alert("Valid e-mail please...!"); 
+	});
+
+  	$(".cd").live('click', function(){ //click to send mail with link and password
+  		content=$(this).attr("label");
+    	email=$(this).text();
+    	arr=content.split("-");
+	    pass=arr[0];
+	    link=arr[1];
+
+    	$.ajax ({
+			type: "POST",
+			url: "/mail/sendMail",
+			data: {e: email, p: pass, l: link},
+			success: function(html) {
+				alert("Send mail success!");
+			}				
+		}); 	      
+  	});
+});
+
+	

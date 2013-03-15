@@ -16,7 +16,9 @@ development:
   pool: 5
   username: root
   password: 
-  socket: /tmp/mysql.sock
+  #socket: /tmp/mysql.sock
+  host: 127.0.0.1
+  port: 3306
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -30,7 +32,9 @@ test:
   pool: 5
   username: root
   password:
-  socket: /tmp/mysql.sock
+  #socket: /tmp/mysql.sock
+  host: 127.0.0.1
+  port: 3306
 
 production:
   adapter: mysql2
@@ -40,4 +44,6 @@ production:
   pool: 5
   username: root
   password: 
-  socket: /tmp/mysql.sock
+  #socket: /tmp/mysql.sock
+  host: 127.0.0.1
+  port: 3306

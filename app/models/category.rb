@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-	scope :getByLastSubject, lambda { where("subject_id = ?", Subject.last.id) }
+  scope :getByLastSubject, lambda { where("subject_id = ?", Subject.last.id) }
   attr_accessible :description, :name, :subject_id
 
   belongs_to :subject

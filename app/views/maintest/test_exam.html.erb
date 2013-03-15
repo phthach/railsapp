@@ -40,10 +40,11 @@
 				<%= radio_button_tag a['id'], key %> 
 				<%= value %>
 			<% elsif a['type_question'] == "Multiple choices" %>
-				<%= check_box_tag "#{a['id']}[]", key %>
+				<%= check_box_tag "#{a['id']}[]", key %> <!--id & name="{a['id']}[]" value=key-->
 				<%= value %>
 			<% elsif a['type_question'] == "Open answer" %>
-				<%= text_field_tag a['id'], "", {:class => "input-xxlarge", :placeholder => "Write your answer"} %>
+				<%= text_field_tag a['id'], "", {:class => "input-xxlarge", :placeholder => "Write your answer"} %> 
+				<!--id & name ="a['id']" value=""-->
 			<% end %>
 			<br />
 		<% end %>

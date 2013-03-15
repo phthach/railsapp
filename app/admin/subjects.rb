@@ -12,4 +12,5 @@ ActiveAdmin.register Subject do
   action_item :only => :show do
     link_to "New Subject", new_admin_subject_path
   end
+
 end
