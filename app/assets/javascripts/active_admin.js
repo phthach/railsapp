@@ -58,23 +58,6 @@ $(document).ready(function() {
 			
 	});
 
-
-	// $(document).ready(function(){
- //  		$(".name_test").change(function(){
-
- //    		var content=$(this).val();
- //    		$(this).replaceWith('<a href="/mail" class="cd">'+content+'</a>');  
-
- //    		$(".cd").click(function(){
- //    			$.ajax ({
-	// 				type: "POST",
-	// 				url: "/mail/sendMail",
-	// 				data: {id: "content"}
-	// 				//cache: false,					
-	// 			}); 	      		         
- //  			});
- //  		});
-	// });
 });
 
 $(document).ready(function(){
@@ -83,18 +66,18 @@ $(document).ready(function(){
 	var email;
 	var user_id;
 
-  	$(".name_test").change(function(){	//textbox
+  	$(".name_test").live('change',function(){	//textbox
     	content=$(this).attr("label");
-    	email=$(this).val();
+    	email=$(this).val().trim();
     	if (email=="") return true;
     	var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
 		if (testEmail.test(email)){
-	    	$(this).replaceWith('<a href="javascript:void()" class="cd" label='+content+'>'+email+'</a>');   
+	    	$(this).parent().replaceWith('<td><a href="javascript:void()" class="cd" label='+content+'>'+email+'</a> - <a href="javascript:void()" class="editEmail">Edit</a></td>');   	    	
 	    	arr=content.split("-");
 	    	pass=arr[0];
 	    	link=arr[1];
 	    	user_id=arr[2];
-	    	// console.log("start ajax");
+
 	    	$.ajax ({
 				type: "POST",
 				url: "/mail/insertEmail",
@@ -103,7 +86,6 @@ $(document).ready(function(){
 					alert("Save email success!");
 				}		
 			});
-			// console.log("stop ajax");
 	    }
 	    else 
 	    	alert("Valid e-mail please...!"); 
@@ -125,6 +107,33 @@ $(document).ready(function(){
 			}				
 		}); 	      
   	});
+
+  	// edit email when click edit link
+  	var preElm;
+  	$(".editEmail").live('click',function(){
+  		preElm = $(this).parent();
+  		content = $(this).prev().attr("label");
+  		oldEmail = $(this).prev().text();
+  		$(this).parent().replaceWith('<td><input class="name_test" label="'+content+'"></input> - <a href="javascript:void()" class="returnPrev">Return</a></td>');
+  	});
+
+  	$('.returnPrev').live('click', function(){
+		$(this).parent().replaceWith(preElm);  		
+  	});
+  	
 });
 
-	
+$(document).ready(function(){
+	$('.ansLater').click(function(){
+		ide = $(this).attr('value');
+    	if($(this).children().hasClass('icon-star-empty')){
+    		$(this).find('i').replaceWith('<i class="icon-star"></i>');
+			$('#notAnsBody').append("<a id='ID"+ide+"' href=#"+ide+">Quesion "+ide+"</a><br>");
+		}
+		else{
+			$(this).find('i').replaceWith('<i class="icon-star-empty"></i>');
+			$('#ID'+$(this).attr('value')).next().detach();
+			$('#ID'+$(this).attr('value')).detach();
+		} 
+  	});
+});
