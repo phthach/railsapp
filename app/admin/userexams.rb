@@ -34,10 +34,13 @@ ActiveAdmin.register Userexam do
       content = userexam.password + "-" + "localhost:3000/" +userexam.exam.hashid.to_s + "-" + user_id.to_s
       if(userexam.email==nil) 
         form do |f|    
-          f.input :class => 'name_test', :label => content      
+          f.input :class => 'name_test', :label => content             
         end
       else 
-        link_to userexam.email, 'javascript:void()', :class => "cd", :label => content
+        inf = link_to userexam.email, 'javascript:void()', :class => "cd", :label => content
+        inf += " - "
+        inf += link_to "Edit", 'javascript:void()', :class => "editEmail"
+        inf
       end
     end
 
