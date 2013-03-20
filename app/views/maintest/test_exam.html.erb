@@ -24,34 +24,42 @@
     <input id="txt" readonly="true" type="text" value="" border="0" name="disp" />
   </form>
 </span>
+<!-- define a div with class=testCont -->
+<div class="testCont">
+	<%= form_tag(:controller => "maintest", :action => "get_point") do %>
+		<%= hidden_field_tag "hashid", params[:hashid] %>
+		<%= hidden_field_tag "id", @userexam.id %>
 
-<%= form_tag(:controller => "maintest", :action => "get_point") do %>
-	<%= hidden_field_tag "hashid", params[:hashid] %>
-	<%= hidden_field_tag "id", @userexam.id %>
-
-	<% i = 0 %>  
-	<% @arr.each do |a| %>
-		<% i += 1 %>
-		<% a['question'].insert(-7, " &nbsp;&nbsp;(<b>" + a['type_question'] + "</b>)") %>
-		<% a['question'].insert(3, "<strong>" + i.to_s + ") </strong>") %>
-		<%= a['question'].html_safe %>
-		<% a['answer'].each do |key, value| %>
-			<% if a['type_question'] == "Single choice" %>
-				<%= radio_button_tag a['id'], key %> 
-				<%= value %>
-			<% elsif a['type_question'] == "Multiple choices" %>
-				<%= check_box_tag "#{a['id']}[]", key %> <!--id & name="{a['id']}[]" value=key-->
-				<%= value %>
-			<% elsif a['type_question'] == "Open answer" %>
-				<%= text_field_tag a['id'], "", {:class => "input-xxlarge", :placeholder => "Write your answer"} %> 
-				<!--id & name ="a['id']" value=""-->
+		<% i = 0 %>  
+		<% @arr.each do |a| %>
+			<% i += 1 %>
+			<% a['question'].insert(-7, " &nbsp;&nbsp;(<b>" + a['type_question'] + "</b>)") %>
+			<% a['question'].insert(-7, " &nbsp; <a href='javascript:void()' class='ansLater' value='"+i.to_s+"'><i class='icon-star-empty'></i></a>") %>
+			<!-- id to anchor -->
+			
+			<% a['question'].insert(3, "<strong id='"+i.to_s+"' >" + i.to_s + ") </strong>") %>
+			<%= a['question'].html_safe %>
+			<% a['answer'].each do |key, value| %>
+				<% if a['type_question'] == "Single choice" %>
+					<%= radio_button_tag a['id'], key %> 
+					<%= value %>
+				<% elsif a['type_question'] == "Multiple choices" %>
+					<%= check_box_tag "#{a['id']}[]", key %> <!--id & name="{a['id']}[]" value=key-->
+					<%= value %>
+				<% elsif a['type_question'] == "Open answer" %>
+					<%= text_field_tag a['id'], "", {:class => "input-xxlarge", :placeholder => "Write your answer"} %> 
+					<!--id & name ="a['id']" value=""-->
+				<% end %>
+				<br />
 			<% end %>
 			<br />
 		<% end %>
-		<br />
+		<div class="actions">
+	    	<%= submit_tag "Submit", {:class => "btn btn-primary", :onclick => "return des()"} %>
+	  	</div>  	
 	<% end %>
-	<div class="actions">
-    	<%= submit_tag "Submit", {:class => "btn btn-primary", :onclick => "return des()"} %>
-  	</div>
-
-<% end %>
+<div>
+<div id="notAns">
+	<div id="notAnsHead"></div>
+	<div id="notAnsBody"></div>
+</div>
