@@ -25,7 +25,7 @@
       <%= f.input :q_user, :label => "No. of candidates", :as => :number %>
       
       <li>
-        <%= f.input :level, :as => :check_boxes, :collection =>{ "None"=>"0", "Easy" => "1", "Normal" => "2", "Hard" => "3" }%>
+        <%= f.input :level, :as => :check_boxes, :collection =>{ "None"=>"0", "Low" => "1", "Medium" => "2", "High" => "3" }%>
       </li>
     <% end %>
     <%= f.input :time_exam, :label => "Time Exam (minutes)" %>        
