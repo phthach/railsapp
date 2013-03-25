@@ -31,7 +31,7 @@ ActiveAdmin.register Userexam do
     column "Email" do |userexam|
       email=userexam.email #to check if null or not null
       user_id=userexam.id #to find user
-      content = userexam.password + "-" + "localhost:3000/" +userexam.exam.hashid.to_s + "-" + user_id.to_s
+      content = userexam.password + "-" + userexam.exam.hashid.to_s + "-" + user_id.to_s
       if(userexam.email==nil) 
         form do |f|    
           f.input :class => 'name_test', :label => content             

@@ -77,7 +77,6 @@ $(document).ready(function(){
 	    	pass=arr[0];
 	    	link=arr[1];
 	    	user_id=arr[2];
-
 	    	$.ajax ({
 				type: "POST",
 				url: "/mail/insertEmail",
@@ -97,11 +96,10 @@ $(document).ready(function(){
     	arr=content.split("-");
 	    pass=arr[0];
 	    link=arr[1];
-
     	$.ajax ({
 			type: "POST",
 			url: "/mail/sendMail",
-			data: {e: email, p: pass, l: link},
+			data: {e: email, p: pass, l: location.host+"/"+link},
 			success: function(html) {
 				alert("Send mail success!");
 			}				
