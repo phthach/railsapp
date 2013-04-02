@@ -33,9 +33,9 @@ ActiveAdmin.register Userexam do
       user_id=userexam.id #to find user
       content = userexam.password + "-" + userexam.exam.hashid.to_s + "-" + user_id.to_s
       if(userexam.email==nil) 
-        form do |f|    
-          f.input :class => 'name_test', :label => content             
-        end
+        # form do |f|    
+          form.input :class => 'name_test', :label => content             
+        # end
       else 
         inf = link_to userexam.email, 'javascript:void()', :class => "cd", :label => content
         inf += " - "
