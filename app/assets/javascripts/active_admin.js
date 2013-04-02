@@ -72,7 +72,10 @@ $(document).ready(function(){
     	if (email=="") return true;
     	var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
 		if (testEmail.test(email)){
-	    	$(this).parent().replaceWith('<td><a href="javascript:void()" class="cd" label='+content+'>'+email+'</a> - <a href="javascript:void()" class="editEmail">Edit</a></td>');   	    	
+			htmlElm = '<td><a href="javascript:void()" class="cd" label='+content+'>'+email+'</a>'
+			htmlElm += ' - <a href="javascript:void()" class="editEmail">Edit</a></td>'
+			$(this).parent().replaceWith(htmlElm);
+	    	// $(this).parent().replaceWith('<td><a href="javascript:void()" class="cd" label='+content+'>'+email+'</a> - <a href="javascript:void()" class="editEmail">Edit</a></td>');   	    	
 	    	arr=content.split("-");
 	    	pass=arr[0];
 	    	link=arr[1];
@@ -88,6 +91,7 @@ $(document).ready(function(){
 	    }
 	    else 
 	    	alert("Valid e-mail please...!"); 
+
 	});
 
   	$(".cd").live('click', function(){ //click to send mail with link and password
@@ -112,11 +116,13 @@ $(document).ready(function(){
   		preElm = $(this).parent();
   		content = $(this).prev().attr("label");
   		oldEmail = $(this).prev().text();
-  		$(this).parent().replaceWith('<td><input class="name_test" label="'+content+'"></input> - <a href="javascript:void()" class="returnPrev">Return</a></td>');
+  		htmlElm = '<td><input class="name_test" label="'+content+'"></input>'
+  		htmlElm += ' - <a href="javascript:void()" class="returnPrev">Return</a></td>'
+  		$(this).parent().replaceWith(htmlElm);  		
   	});
 
-  	$('.returnPrev').live('click', function(){
-		$(this).parent().replaceWith(preElm);  		
+  	$('.returnPrev').live('click', function(){ 
+		$(this).parent().replaceWith(preElm); 
   	});
   	
 });
