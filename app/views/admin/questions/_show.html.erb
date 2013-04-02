@@ -1,4 +1,5 @@
 <%
+  hashLevel = {0=>"None",1=>"Low",2=>"Medium",3=>"High"}
 	id = @question.id
 	content = @question.content.html_safe
 	mark = @question.mark
@@ -18,6 +19,10 @@
         <tr>
           <th>Id</th>
           <td><%= id %></td>
+        </tr>
+        <tr>
+          <th>Level</th>
+          <td><%= hashLevel[@question.level] %></td>
         </tr>
         <tr>
           <th>Content</th>
